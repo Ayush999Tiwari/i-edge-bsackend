@@ -1,23 +1,18 @@
-import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from .database import engine, Base
 from .routers import auth
-
 
 app = FastAPI(
     title="i-Edge Enterprise API",
     version="2.0"
 )
 
-
-origins = os.getenv(
-    "CORS_ORIGINS",
+# ✅ HARDCODED ORIGINS - NO OS.GETENV TO AVOID SYNTAX ERRORS
+origins = [
     "http://localhost:5173",
     "https://i-edge-frontend-6jzi.vercel.app"
-).split(",")
-
+]
 
 app.add_middleware(
     CORSMiddleware,
@@ -27,18 +22,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 app.include_router(auth.router)
-
 
 @app.on_event("startup")
 async def startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
-
 @app.get("/")
 def read_root():
-    return {
-        "message": "i-Edge API is running"
-    }
+    return {"message": "i-Edge API is running"}
