@@ -3,12 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
 from .routers import auth
 
-app = FastAPI(
-    title="i-Edge Enterprise API",
-    version="2.0"
-)
+app = FastAPI(title="i-Edge Enterprise API", version="2.0")
 
-# ✅ HARDCODED ORIGINS - NO OS.GETENV TO AVOID SYNTAX ERRORS
+# ✅ HARDCODED ORIGINS - NO DYNAMIC CONFIG TO AVOID CACHING ISSUES
 origins = [
     "http://localhost:5173",
     "https://i-edge-frontend-6jzi.vercel.app"
