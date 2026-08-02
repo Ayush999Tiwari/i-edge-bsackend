@@ -8,7 +8,7 @@ app = FastAPI(title="i-Edge Enterprise API", version="2.0")
 # ✅ HARDCODED ORIGINS - NO DYNAMIC CONFIG TO AVOID CACHING ISSUES
 origins = [
     "http://localhost:5173",
-    "https://i-edge-frontend-6jzi.vercel.app"
+    "https://i-edge-frontend-pql8.vercel.app/"
 ]
 
 app.add_middleware(
